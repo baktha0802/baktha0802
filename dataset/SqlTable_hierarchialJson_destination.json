@@ -1,0 +1,16 @@
+{
+	"name": "SqlTable_hierarchialJson_destination",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "restapi2"
+		}
+	}
+}

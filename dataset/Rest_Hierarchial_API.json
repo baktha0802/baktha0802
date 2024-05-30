@@ -1,0 +1,12 @@
+{
+	"name": "Rest_Hierarchial_API",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "RestService2_hierarichal",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}

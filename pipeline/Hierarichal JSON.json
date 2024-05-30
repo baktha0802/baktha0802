@@ -1,0 +1,151 @@
+{
+	"name": "Hierarichal JSON",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['meta']['pagination']['total']"
+								},
+								"sink": {
+									"name": "total"
+								}
+							},
+							{
+								"source": {
+									"path": "$['meta']['pagination']['pages']"
+								},
+								"sink": {
+									"name": "pages"
+								}
+							},
+							{
+								"source": {
+									"path": "$['meta']['pagination']['page']"
+								},
+								"sink": {
+									"name": "page"
+								}
+							},
+							{
+								"source": {
+									"path": "$['meta']['pagination']['limit']"
+								},
+								"sink": {
+									"name": "limit"
+								}
+							},
+							{
+								"source": {
+									"path": "$['meta']['pagination']['links']['previous']"
+								},
+								"sink": {
+									"name": "previous"
+								}
+							},
+							{
+								"source": {
+									"path": "$['meta']['pagination']['links']['current']"
+								},
+								"sink": {
+									"name": "current"
+								}
+							},
+							{
+								"source": {
+									"path": "$['meta']['pagination']['links']['next']"
+								},
+								"sink": {
+									"name": "next"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['id']"
+								},
+								"sink": {
+									"name": "id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['name']"
+								},
+								"sink": {
+									"name": "name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['email']"
+								},
+								"sink": {
+									"name": "email"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['gender']"
+								},
+								"sink": {
+									"name": "gender"
+								}
+							},
+							{
+								"source": {
+									"path": "$['data'][0]['status']"
+								},
+								"sink": {
+									"name": "status"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Rest_Hierarchial_API",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SqlTable_hierarchialJson_destination",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
