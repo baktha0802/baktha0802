@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_file_formats WHERE name = 'SynapseParquetFormat') \n\tCREATE EXTERNAL FILE FORMAT [SynapseParquetFormat] \n\tWITH ( FORMAT_TYPE = PARQUET)\nGO\n\nIF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'gold_leespace2_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [gold_leespace2_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://gold@leespace2.dfs.core.windows.net' \n\t)\nGO\n\nCREATE EXTERNAL TABLE dbo.totalmerged (\n\t[registration_dttm] datetime2(7),\n\t[id] int,\n\t[first_name] nvarchar(4000),\n\t[last_name] nvarchar(4000),\n\t[email] nvarchar(4000),\n\t[gender] nvarchar(4000),\n\t[ip_address] nvarchar(4000),\n\t[cc] nvarchar(4000),\n\t[country] nvarchar(4000),\n\t[birthdate] nvarchar(4000),\n\t[salary] float,\n\t[title] nvarchar(4000),\n\t[comments] nvarchar(4000)\n\t)\n\tWITH (\n\tLOCATION = 'parquet/totalmerged.parquet',\n\tDATA_SOURCE = [gold_leespace2_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.totalmerged\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sampledb",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

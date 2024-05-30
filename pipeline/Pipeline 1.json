@@ -1,0 +1,156 @@
+{
+	"name": "Pipeline 1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['login']"
+								},
+								"sink": {
+									"name": "login"
+								}
+							},
+							{
+								"source": {
+									"path": "$['id']"
+								},
+								"sink": {
+									"name": "id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['node_id']"
+								},
+								"sink": {
+									"name": "node_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['url']"
+								},
+								"sink": {
+									"name": "url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['repos_url']"
+								},
+								"sink": {
+									"name": "repos_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['events_url']"
+								},
+								"sink": {
+									"name": "events_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hooks_url']"
+								},
+								"sink": {
+									"name": "hooks_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['issues_url']"
+								},
+								"sink": {
+									"name": "issues_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['members_url']"
+								},
+								"sink": {
+									"name": "members_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['public_members_url']"
+								},
+								"sink": {
+									"name": "public_members_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['avatar_url']"
+								},
+								"sink": {
+									"name": "avatar_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['description']"
+								},
+								"sink": {
+									"name": "description"
+								}
+							}
+						],
+						"collectionReference": ""
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Rest_API_TabularJSON",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-05-30T06:06:49Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
